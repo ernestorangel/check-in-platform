@@ -23,20 +23,22 @@ export default {
   #time-stamp {
     display: flex;
     flex-direction: row;
+    align-items: center;
     font-size: 40px;
-    height: 100px;
-    margin: 0 30px;
+    width: 100%;
+    height: 120px;
   }
 
   #time-stamp-date {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 280px;
+    height: 100%;
+    width: 100%;
     background-color: #ffffff;
     border: 1px solid lightgray;
     border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
+    /* border-bottom-left-radius: 20px; */
     white-space: nowrap;
   }
 
@@ -44,11 +46,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 250px;
+    height: 100%;
+    min-width: 250px;
     background-color: #ffffff;
     border: 1px solid lightgray;
     border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    /* border-bottom-right-radius: 20px; */
     white-space: nowrap;
   }
 </style>

@@ -31,7 +31,7 @@ export default {
     height: auto;
     background-color: #fafafa;
     border-radius: 20px;
-    padding-top: 30px;
+    padding-top: 0px;
   }
 
   #app-form {
@@ -40,9 +40,10 @@ export default {
     justify-content: center;
     align-items: center;
   }
-
+  
   #input-holder {
-    margin: 0px 30px;
+    width: 100%;
+    padding: 0px 30px;
   }
 
   input {
@@ -66,7 +67,6 @@ export default {
     font-size: 20px;
     font-weight: 800;
     color: white;
-  
   }
 
   #main-button:hover {
