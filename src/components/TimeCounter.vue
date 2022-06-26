@@ -36,9 +36,10 @@ export default {
     height: 100%;
     width: 100%;
     background-color: #ffffff;
-    border: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
     border-top-left-radius: 20px;
     /* border-bottom-left-radius: 20px; */
+    font-family: 'Roboto Mono', monospace;
     white-space: nowrap;
   }
 
@@ -47,11 +48,12 @@ export default {
     align-items: center;
     justify-content: center;
     height: 100%;
-    min-width: 250px;
+    min-width: 280px;
     background-color: #ffffff;
-    border: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
     border-top-right-radius: 20px;
     /* border-bottom-right-radius: 20px; */
+    font-family: 'Roboto Mono', monospace;
     white-space: nowrap;
   }
 </style>

@@ -13,13 +13,13 @@ export default {
     <form id="app-form">
       <TimeCounter />
       <div id="input-holder">
-        <input type="text" v-model="input_name" placeholder="Código do empregador">
-        <input type="text" v-model="input_name" placeholder="Código do colaborador">
+        <input type="login" v-model="input_name" placeholder="Código do empregador">
+        <input type="password" v-model="input_name" placeholder="Código do colaborador">
       </div>
-      <button id= "main-button" type="submit" form="app-form" value="Submit">Bater Ponto</button>
+      <button id= "main-button" type="submit" form="app-form" value="record">Bater Ponto</button>
       <div id="app-form-other-options">
-        <button class="optional-button" id="left-opt-button" type="submit" form="app-form" value="Submit">Pontos em atraso</button>
-        <button class="optional-button" id="right-opt-button" type="submit" form="app-form" value="Submit">Banco de Horas</button>
+        <button class="optional-button" id="left-opt-button" type="submit" form="app-form" value="recover-late">Pontos em atraso</button>
+        <button class="optional-button" id="right-opt-button" type="submit" form="app-form" value="recover-all">Banco de Horas</button>
       </div>
     </form>
   </div>
@@ -32,6 +32,7 @@ export default {
     background-color: #fafafa;
     border-radius: 20px;
     padding-top: 0px;
+    box-shadow: 2px 2px 5px lightgray;
   }
 
   #app-form {
@@ -40,7 +41,7 @@ export default {
     justify-content: center;
     align-items: center;
   }
-  
+
   #input-holder {
     width: 100%;
     padding: 0px 30px;

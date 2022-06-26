@@ -4,7 +4,7 @@ import MainForm from './components/MainForm.vue';
 
 <template>
   <header>
-    <h1>Clock In</h1>
+    <h1>ClockIn.com</h1>
   </header>
   <main>
     <MainForm />
@@ -14,7 +14,7 @@ import MainForm from './components/MainForm.vue';
 <style>
 @import './assets/base.css';
 
-header {
+header { 
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,6 +25,7 @@ header {
 h1 {
   font-size: 80px;
   font-weight: 800;
+  text-shadow: 2px 2px 2px lightgray;
 }
 
 main {
