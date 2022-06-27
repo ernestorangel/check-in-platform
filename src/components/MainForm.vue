@@ -2,19 +2,35 @@
 import TimeCounter from './TimeCounter.vue';
 export default {
   name: 'MainForm',
+  data () {
+    return {
+      company_code_input: '',
+      employee_code_input: ''
+    }
+  },
   components: {
     TimeCounter
+  },
+  methods: {
+    async onSubmit(e) {
+      e.preventDefault()
+      console.log('mama o xaxo: ', this.company_code_input, this.employee_code_input)
+      const response = await fetch(`http://localhost:8080/clockin?company_code=${this.company_code_input}&employee_code=${this.employee_code_input}`)
+      const data = await response.json()
+      console.log(data)
+    }
   }
 }
+
 </script>
 
 <template>
   <div id="form-container">
-    <form id="app-form">
+    <form id="app-form" @submit="onSubmit">
       <TimeCounter />
       <div id="input-holder">
-        <input type="login" v-model="input_name" placeholder="Código do empregador">
-        <input type="password" v-model="input_name" placeholder="Código do colaborador">
+        <input type="login" name="company_code_input" v-model="company_code_input" placeholder="Código do empregador">
+        <input type="password" name="employee_code_input" v-model="employee_code_input" placeholder="Código do colaborador">
       </div>
       <button id= "main-button" type="submit" form="app-form" value="record">Bater Ponto</button>
       <div id="app-form-other-options">
