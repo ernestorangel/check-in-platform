@@ -1,23 +1,36 @@
 <script>
 import TimeCounter from './TimeCounter.vue';
+
 export default {
   name: 'MainForm',
   data () {
     return {
       company_code_input: '',
-      employee_code_input: ''
+      employee_code_input: '',
+      timestamp: ''
     }
   },
   components: {
     TimeCounter
   },
   methods: {
-    async onSubmit(e) {
-      e.preventDefault()
-      console.log('mama o xaxo: ', this.company_code_input, this.employee_code_input)
-      const response = await fetch(`http://localhost:8080/clockin?company_code=${this.company_code_input}&employee_code=${this.employee_code_input}`)
-      const data = await response.json()
-      console.log(data)
+    async handleClick(index) {
+      switch(index) {
+        case 0:
+          let timestamp = new Date();
+          await fetch(`http://localhost:8080/clockin?company_code=${this.company_code_input}&employee_code=${this.employee_code_input}&timestamp=${timestamp}`);
+          break;
+        case 1:
+          await fetch(`http://localhost:8080/edit?company_code=${this.company_code_input}&employee_code=${this.employee_code_input}`);
+          break;
+        case 2:
+          let response = await fetch(`http://localhost:8080/bank?company_code=${this.company_code_input}&employee_code=${this.employee_code_input}`);
+          let data = await response.json();
+          console.log(data);
+          break;
+        default:
+          console.log('error: no valid button pressed.')
+      }
     }
   }
 }
@@ -26,16 +39,20 @@ export default {
 
 <template>
   <div id="form-container">
-    <form id="app-form" @submit="onSubmit">
+    <form id="app-form" @submit.prevent="onSubmit">
       <TimeCounter />
       <div id="input-holder">
-        <input type="login" name="company_code_input" v-model="company_code_input" placeholder="Código do empregador">
+        <input id="username" type="text" name="company_code_input" v-model="company_code_input" placeholder="Código do empregador">
         <input type="password" name="employee_code_input" v-model="employee_code_input" placeholder="Código do colaborador">
       </div>
-      <button id= "main-button" type="submit" form="app-form" value="record">Bater Ponto</button>
+      <button id= "main-button" form="app-form" type="submit" action="POST" @click="handleClick(0)">Bater Ponto</button>
       <div id="app-form-other-options">
-        <button class="optional-button" id="left-opt-button" type="submit" form="app-form" value="recover-late">Pontos em atraso</button>
-        <button class="optional-button" id="right-opt-button" type="submit" form="app-form" value="recover-all">Banco de Horas</button>
+        <router-link to="/edit" class="buttonHolder">
+          <button class="optional-button" id="left-opt-button"  form="app-form" type="submit" action="POST" @click="handleClick(1)">Editar Manualmente</button>
+        </router-link>
+        <router-link to="/bank" class="buttonHolder">
+          <button class="optional-button" id="right-opt-button"  form="app-form" type="submit" action="POST" @click="handleClick(2)">Banco de Horas</button>
+        </router-link>
       </div>
     </form>
   </div>
@@ -102,8 +119,12 @@ export default {
     border-top: 1px solid lightgray;
   }
 
+  .buttonHolder {
+    width: 100%;
+  }
+
   .optional-button {
-    width: 50%;
+    width: 100%;
     height: 100%;
     padding: 20px 0px;
     background-color: transparent;

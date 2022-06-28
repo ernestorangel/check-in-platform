@@ -2,7 +2,7 @@
 
 setInterval(function() {
   let currentDate = new Date();
-  document.getElementById("time-stamp-date").innerHTML = currentDate.toLocaleDateString();
+  document.getElementById("time-stamp-date").innerHTML= currentDate.toLocaleDateString();
   document.getElementById("time-stamp-moment").innerHTML = currentDate.toLocaleTimeString();
 }, 1000)
 

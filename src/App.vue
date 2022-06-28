@@ -1,13 +1,14 @@
 <script setup>
-import MainForm from './components/MainForm.vue';
 </script>
 
 <template>
   <header>
-    <h1>ClockIn.com</h1>
+      <router-link to="/" id="logo">
+        ClockIn.com
+      </router-link>
   </header>
   <main>
-    <MainForm />
+    <router-view></router-view>
   </main>
 </template>
 
@@ -22,10 +23,12 @@ header {
   padding: 20px 0px;
 }
 
-h1 {
+#logo {
+  color:orange;
   font-size: 80px;
   font-weight: 800;
   text-shadow: 2px 2px 2px lightgray;
+  text-decoration: none;
 }
 
 main {
