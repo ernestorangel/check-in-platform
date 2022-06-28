@@ -1,5 +1,5 @@
 const myRouter = {
-  bank: (data) => {
-    
-  }
+
 }
+
+module.exports = myRouter;
