@@ -56,17 +56,25 @@ async function handleClick(operationTypeString, checkinCode) {
       </div>
     </div>
     <div id="edit-tray" v-if="isEditTrayOn">
+      <div id="edit-tray-left"></div>
       <form id="edit-form">
         <label class="edit-form-label">Nova Data: </label>
-        <input type="text" class="edit-form-input">
+        <input type="date" id="edit-form-date">
         <label class="edit-form-label">Hora: </label>
-        <input type="text" class="edit-form-input">
+        <select type="number" class="edit-form-input">
+          <option v-for="h in 24" :value="h - 1">{{ h - 1 }}</option>
+        </select>
         <label class="edit-form-label">Minuto: </label>
-        <input type="text" class="edit-form-input">
+        <select type="text" class="edit-form-input">
+          <option v-for="m in 60" :value="m - 1">{{ m - 1 }}</option>
+        </select>
         <label class="edit-form-label">Segundo: </label>
-        <input type="text" class="edit-form-input">
+        <select type="text" class="edit-form-input">
+          <option v-for="s in 60" :value="s - 1">{{ s - 1 }}</option>
+        </select>
         <button id="submit-edit-button">OK</button>
       </form>
+      <div id="edit-tray-right"></div>
     </div>
   </div>
 </template>
@@ -105,12 +113,15 @@ async function handleClick(operationTypeString, checkinCode) {
   align-items: center;
   justify-content: center;
   background-color: #ffffff;
+  color: orange;
   font-size: 20px;
   font-weight: 400;
   width: 850px;
   height: 100%;
   padding: 0px 20px;
   white-space: nowrap;
+  /* border-top-left-radius: 20px;
+  border-top-right-radius: 20px; */
 }
 
 #module-options {
@@ -153,6 +164,7 @@ async function handleClick(operationTypeString, checkinCode) {
   justify-content: center;
   height: 80px;
   transition: 2s;
+  margin-bottom: 20px;
 }
 
 @keyframes edit-tray {
@@ -170,21 +182,40 @@ async function handleClick(operationTypeString, checkinCode) {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: #d6d6d6;
+  background-color: #ffffff;
   height: 100%;
-  width: 100%;
+  width: 850px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .edit-form-label {
   margin-right: 10px;
-  color: #ffffff;
+  color: orange;
+}
+
+#edit-form-date {
+  margin-right: 30px;
+  height: 40px;
+  width: 150px;
+  border-radius: 20px;
+  font-size: 15px;
+  padding: 5px 10px;
+  font-weight: 600;
+  background-color: orange;
+  color: white;
 }
 
 .edit-form-input {
-  margin-right: 80px;
+  margin-right: 30px;
   height: 40px;
-  width: 100px;
+  width: 60px;
   border-radius: 20px;
+  font-size: 15px;
+  padding: 5px 10px;
+  font-weight: 600;
+  background-color: orange;
+  color: white;
 }
 
 #submit-edit-button {
@@ -195,5 +226,13 @@ async function handleClick(operationTypeString, checkinCode) {
   height: 40px;
   width: 80px;
   border-radius: 20px;
+}
+
+#edit-tray-left {
+  width: 160px;
+}
+
+#edit-tray-right {
+  width: 200px;
 }
 </style>
