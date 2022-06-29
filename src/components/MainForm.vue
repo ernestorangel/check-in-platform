@@ -1,10 +1,8 @@
 <script>
 import TimeCounter from './TimeCounter.vue';
 import { useRecoilState } from 'vue-recoil';
-import { atomState } from '../store/atom.js';
-import AppVue from '../App.vue';
+import { atomState, companyAtom, employeeAtom } from '../store/atom.js';
 import { useToast } from 'vue-toast-notification';
-import { useRouter } from 'vue-router';
 
 export default {
   name: 'MainForm',
@@ -22,7 +20,10 @@ export default {
   methods: {
     async handleClick(index) {
       const $toast = useToast();
-      let [count, setCount] = useRecoilState(atomState);
+      const [count, setCount] = useRecoilState(atomState);
+      const [company, setCompany] = useRecoilState(companyAtom);
+      const [employee, setEmployee] = useRecoilState(employeeAtom);
+
       let toast;
 
       switch (index) {
@@ -39,7 +40,8 @@ export default {
           this.isLoadingBank = true;
           let response = await fetch(`http://localhost:8080/bank?company_code=${this.company_code_input}&employee_code=${this.employee_code_input}`);
           if (response.status == 200) {
-            // this.$router.push('/bank')
+            setCompany(this.company_code_input)
+            setEmployee(this.employee_code_input)
             toast = { message: 'Histórico recuperado com sucesso', type: 'success', position: 'top-right', duration: 3 * 1000 }
             let data = await response.json();
             console.log(data);
@@ -71,7 +73,7 @@ export default {
       <div id="input-holder">
         <input id="username" type="text" name="company_code_input" v-model="company_code_input"
           placeholder="Código do empregador">
-        <input type="password" name="employee_code_input" v-model="employee_code_input"
+        <input id="password" type="password" name="employee_code_input" v-model="employee_code_input"
           placeholder="Código do colaborador">
       </div>
       <button id="main-button" form="app-form" type="submit" action="POST" @click="handleClick(0)">Bater Ponto</button>
@@ -113,7 +115,8 @@ export default {
   padding: 0px 30px;
 }
 
-input {
+input#username,
+input#password {
   width: 100%;
   height: 60px;
   margin-top: 30px;

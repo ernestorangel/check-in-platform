@@ -2,24 +2,23 @@
 import ListModule from '../components/ListModule.vue';
 import ListHeader from '../components/ListHeader.vue'
 import ListFooter from '../components/ListFooter.vue'
-import { ref } from 'vue'
 import { useRecoilState } from 'vue-recoil';
 import { atomState } from '../store/atom.js';
 
 let [count, setCount] = useRecoilState(atomState);
 
-const months = count;
+const checkins = count;
 
 </script>
 
 <template>
   <div id="main-container">
-    <form>
+    <form @submit.prevent="onSubmit">
       <ListHeader label_1="Code" label_2="Label"></ListHeader>
       <div id="list-module-container">
-        <ListModule v-for="month in months" :month="month" :key="month.id"></ListModule>
+        <ListModule v-for="checkin in checkins" :checkin="checkin" :key="checkin.id"></ListModule>
       </div>
-      <ListFooter label_1="Total" label_2="1056h"></ListFooter>
+      <ListFooter></ListFooter>
     </form>
   </div>
 </template>

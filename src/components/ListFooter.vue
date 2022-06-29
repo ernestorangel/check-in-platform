@@ -9,8 +9,6 @@ export default {
   <div id="list-footer-container">
     <div id="list-footer-label"></div>
     <div id="list-footer-content">
-      <button id="edit-button">Editar</button>
-      <button id="delete-button">Deletar</button>
     </div>
   </div>
 </template>
@@ -21,7 +19,7 @@ export default {
   flex-direction: row;
   align-items: center;
   width: auto;
-  height: 60px;
+  height: 30px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   border-top: 1px solid lightgray;
