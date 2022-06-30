@@ -6,8 +6,6 @@ import Bank from '@/views/Bank.vue'
 import Edit from '@/views/Edit.vue'
 import { VueToast } from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
-import { useRecoilState } from 'vue-recoil';
-import { atomState } from './store/atom.js';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -20,10 +18,7 @@ const router = createRouter({
     {
       path: '/bank', 
       name: 'Bank', 
-      component: Bank,
-      beforeEnter: async (to, from) => {
-        console.log(to.params)
-      }
+      component: Bank
     },
     {
       path: '/edit', 
@@ -34,7 +29,7 @@ const router = createRouter({
 })
 
 
-const app = createApp(App)
+createApp(App)
 .use(router)
 .use(VueToast)
 .mount('#app')

@@ -3,17 +3,20 @@ import { useToast } from 'vue-toast-notification';
 import { useRecoilState } from 'vue-recoil';
 import { atomState, companyAtom, employeeAtom } from '../store/atom.js';
 
-const props = defineProps({
+defineProps({
   checkin: Object,
 })
 
 let isEditTrayOn = false;
+let date = '';
+let hours = 0;
+let minutes = 0;
+let seconds = 0;
 
 async function handleClick(operationTypeString, checkinCode) {
   const $toast = useToast();
   const [company, setCompany] = useRecoilState(companyAtom);
   let companyCode = company.value;
-  console.log(companyCode.value)
   const [employee, setEmployee] = useRecoilState(employeeAtom);
   let employeeCode = employee.value;
   const [count, setCount] = useRecoilState(atomState);
@@ -31,12 +34,11 @@ async function handleClick(operationTypeString, checkinCode) {
       }
       break;
     case 'upd':
-      console.log(this.isEditTrayOn)
       this.isEditTrayOn = !this.isEditTrayOn
       let newBank = await fetch(`http://localhost:8080/bank?company_code=${companyCode}&employee_code=${employeeCode}`);
       let data = await newBank.json();
       setCount(data);
-      this.$router.push('/bank')
+      // this.$router.push('/bank')
       break;
     default:
       console.log("error: no valid button pressed")
@@ -44,21 +46,24 @@ async function handleClick(operationTypeString, checkinCode) {
 }
 
 async function handleEdit(checkinCode, date, hours, minutes, seconds) {
-  // TO-DO: Treat date if neededed
+  console.log('entrou no handle click')
+  console.log(date)
   const $toast = useToast();
+  let [year, month, day] = date.split('-')
+  console.log(year, month, day)
   const [company, setCompany] = useRecoilState(companyAtom);
   let companyCode = company.value;
   const [employee, setEmployee] = useRecoilState(employeeAtom);
   let employeeCode = employee.value;
   const [count, setCount] = useRecoilState(atomState);
-  let newTimestamp = new Date(year, month, day, hours, minutes, seconds)
-  let response = await fetch(`localhost:8080/edit?checkin_code=${checkinCode}&new_timestamp=${newTimestamp}`)
+  let newTimestamp = new Date(year, month - 1, day, hours, minutes, seconds)
+  let response = await fetch(`http://localhost:8080/edit?checkin_code=${checkinCode}&new_timestamp=${newTimestamp}`)
   if (response.status == 200) {
     $toast.open({ message: 'Registro editado com sucesso!', type: 'success', position: 'top-right', duration: 5000 })
     let newBank = await fetch(`http://localhost:8080/bank?company_code=${companyCode}&employee_code=${employeeCode}`);
     let data = await newBank.json();
     setCount(data);
-    this.$router.push('/bank')
+    this.$router.push('/bank');
   } else {
     $toast.open({ message: 'Erro interno do servidor. Tente novamente.', type: 'error', position: 'top-right', duration: 5000 })
   }
@@ -78,22 +83,23 @@ async function handleEdit(checkinCode, date, hours, minutes, seconds) {
     </div>
     <div id="edit-tray" v-if="isEditTrayOn">
       <div id="edit-tray-left"></div>
-      <form id="edit-form">
+      <form id="edit-form" @submit.prevent="onSubmit">
         <label class="edit-form-label">Nova Data: </label>
-        <input type="date" id="edit-form-date">
+        <input type="date" id="edit-form-date" name="date" v-model="date">
         <label class="edit-form-label">Hora: </label>
-        <select type="number" class="edit-form-input">
+        <select class="edit-form-input" name="hours" v-model="hours">
           <option v-for="h in 24" :value="h - 1">{{ h - 1 }}</option>
         </select>
-        <label class="edit-form-label">Minuto: </label>
-        <select type="text" class="edit-form-input">
+        <label class="edit-form-label">Minutos: </label>
+        <select class="edit-form-input" name="minutes" v-model="minutes">
           <option v-for="m in 60" :value="m - 1">{{ m - 1 }}</option>
         </select>
-        <label class="edit-form-label">Segundo: </label>
-        <select type="text" class="edit-form-input">
+        <label class="edit-form-label">Segundos: </label>
+        <select class="edit-form-input" name="seconds" v-model="seconds">
           <option v-for="s in 60" :value="s - 1">{{ s - 1 }}</option>
         </select>
-        <button id="submit-edit-button">OK</button>
+        <button class="submit-edit-button" type="submit" form="edit-form" :id="checkin.code"
+          @click="handleEdit(checkin.code, this.date, this.hours, this.minutes, this.seconds)">OK</button>
       </form>
       <div id="edit-tray-right"></div>
     </div>
@@ -239,7 +245,7 @@ async function handleEdit(checkinCode, date, hours, minutes, seconds) {
   color: white;
 }
 
-#submit-edit-button {
+.submit-edit-button {
   background-color: orange;
   color: #ffffff;
   font-size: 15px;

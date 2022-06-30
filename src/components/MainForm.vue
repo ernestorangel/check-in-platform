@@ -44,7 +44,6 @@ export default {
             setEmployee(this.employee_code_input)
             toast = { message: 'Histórico recuperado com sucesso', type: 'success', position: 'top-right', duration: 3 * 1000 }
             let data = await response.json();
-            console.log(data);
             setCount(data);
           } else {
             setCount(false);

@@ -6,8 +6,6 @@ let myInterval = setInterval(function () {
   let timestampMoment = document.getElementById("time-stamp-moment")
   if (timestampDate) timestampDate.innerHTML = currentDate.toLocaleDateString();
   if (timestampMoment) timestampMoment.innerHTML = currentDate.toLocaleTimeString();
-  // document.getElementById("time-stamp-date").innerHTML = currentDate.toLocaleDateString();
-  // document.getElementById("time-stamp-moment").innerHTML = currentDate.toLocaleTimeString();
 }, 1000)
 
 export default {
@@ -19,8 +17,6 @@ export default {
       let timestampMoment = document.getElementById("time-stamp-moment")
       if (timestampDate) timestampDate.innerHTML = currentDate.toLocaleDateString();
       if (timestampMoment) timestampMoment.innerHTML = currentDate.toLocaleTimeString();
-      // document.getElementById("time-stamp-date").innerHTML = currentDate.toLocaleDateString();
-      // document.getElementById("time-stamp-moment").innerHTML = currentDate.toLocaleTimeString();
     }, 1000)
   },
   unmounted() {
