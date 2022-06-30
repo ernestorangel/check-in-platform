@@ -43,6 +43,27 @@ async function handleClick(operationTypeString, checkinCode) {
   }
 }
 
+async function handleEdit(checkinCode, date, hours, minutes, seconds) {
+  // TO-DO: Treat date if neededed
+  const $toast = useToast();
+  const [company, setCompany] = useRecoilState(companyAtom);
+  let companyCode = company.value;
+  const [employee, setEmployee] = useRecoilState(employeeAtom);
+  let employeeCode = employee.value;
+  const [count, setCount] = useRecoilState(atomState);
+  let newTimestamp = new Date(year, month, day, hours, minutes, seconds)
+  let response = await fetch(`localhost:8080/edit?checkin_code=${checkinCode}&new_timestamp=${newTimestamp}`)
+  if (response.status == 200) {
+    $toast.open({ message: 'Registro editado com sucesso!', type: 'success', position: 'top-right', duration: 5000 })
+    let newBank = await fetch(`http://localhost:8080/bank?company_code=${companyCode}&employee_code=${employeeCode}`);
+    let data = await newBank.json();
+    setCount(data);
+    this.$router.push('/bank')
+  } else {
+    $toast.open({ message: 'Erro interno do servidor. Tente novamente.', type: 'error', position: 'top-right', duration: 5000 })
+  }
+}
+
 </script>
 
 <template>
