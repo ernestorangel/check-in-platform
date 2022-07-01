@@ -46,11 +46,8 @@ async function handleClick(operationTypeString, checkinCode) {
 }
 
 async function handleEdit(checkinCode, date, hours, minutes, seconds) {
-  console.log('entrou no handle click')
-  console.log(date)
   const $toast = useToast();
   let [year, month, day] = date.split('-')
-  console.log(year, month, day)
   const [company, setCompany] = useRecoilState(companyAtom);
   let companyCode = company.value;
   const [employee, setEmployee] = useRecoilState(employeeAtom);

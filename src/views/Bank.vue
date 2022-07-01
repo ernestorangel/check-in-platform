@@ -3,11 +3,25 @@ import ListModule from '../components/ListModule.vue';
 import ListHeader from '../components/ListHeader.vue'
 import ListFooter from '../components/ListFooter.vue'
 import { useRecoilState } from 'vue-recoil';
-import { atomState } from '../store/atom.js';
+import { atomState, companyAtom, employeeAtom } from '../store/atom.js';
+import { watch, watchEffect } from 'vue';
 
-let [count, setCount] = useRecoilState(atomState);
+const [count, setCount] = useRecoilState(atomState);
+const [company, setCompany] = useRecoilState(companyAtom);
+const [employee, setEmployee] = useRecoilState(employeeAtom);
+
+let companyCode = company.value;
+let employeeCode = employee.value;
 
 const checkins = count;
+
+watchEffect({
+  count(newCount) {
+    console.log(newCount)
+  }
+})
+
+console.log("stringzinha: ", count.value)
 
 </script>
 

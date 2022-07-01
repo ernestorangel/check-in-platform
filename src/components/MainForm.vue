@@ -31,7 +31,6 @@ export default {
           this.isLoading = true;
           let timestamp = new Date();
           const result = await fetch(`http://localhost:8080/clockin?company_code=${this.company_code_input}&employee_code=${this.employee_code_input}&timestamp=${timestamp}`);
-          console.log(result.status)
           if (result.status == 200) $toast.open({ message: 'Ponto registrado com sucesso', type: 'success', position: 'top-right', duration: 5000 })
           else $toast.open({ message: 'Credenciais inválidas!', type: 'error', position: 'top-right', duration: 5000 })
           setTimeout(() => { this.isLoading = false; }, 3 * 1000);

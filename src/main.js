@@ -3,9 +3,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
 import Home from '@/views/Home.vue'
 import Bank from '@/views/Bank.vue'
-import Edit from '@/views/Edit.vue'
+import { useRecoilState } from 'vue-recoil';
+import { atomState } from './store/atom.js';
 import { VueToast } from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
+
+const [count, setCount] = useRecoilState(atomState);
 
 const router = createRouter({
   history: createWebHistory(),
@@ -19,13 +22,19 @@ const router = createRouter({
       path: '/bank', 
       name: 'Bank', 
       component: Bank
-    },
-    {
-      path: '/edit', 
-      name: 'Edit', 
-      component: Edit
     }
   ]
+})
+
+router.beforeEach(async (to, from, next) => {
+  console.log(to.name, from.name, count.name)
+  if(to.name === 'Bank' && from.name === undefined) {
+    next({
+      name: 'Home'
+    })
+  } else {
+    next()
+  }
 })
 
 
